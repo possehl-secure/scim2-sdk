@@ -61,6 +61,18 @@ public class UserRecord extends BaseRecord {
             if (this.schemas != null) {
                 this.schemas.add(key);
             }
+        } else if (value instanceof Map) {
+            ExtensionRecord enterprise = new ExtensionRecord();
+            Map<String, Object> map = (Map<String, Object>) value;
+
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                enterprise.set(entry.getKey(), entry.getValue());
+            }
+
+            this.extensions.put(key, enterprise);
+            if (this.schemas != null) {
+                this.schemas.add(key);
+            }
         } else {
             throw new IllegalArgumentException("Invalid field provided " + key);
         }
