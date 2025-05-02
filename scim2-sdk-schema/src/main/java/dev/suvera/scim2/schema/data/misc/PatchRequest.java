@@ -27,6 +27,11 @@ public class PatchRequest<T extends BaseRecord> {
         this.recordType = recordType;
     }
 
+    // Add this no-arg constructor for Jackson
+    public PatchRequest() {
+        this.recordType = null;
+    }
+
     @JsonProperty("Operations")
     private List<PatchOperation> operations;
 
