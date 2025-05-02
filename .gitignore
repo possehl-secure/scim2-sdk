@@ -9,6 +9,7 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+target
 target/
 scim2-sdk-client/target/
 scim2-sdk-shema/target/

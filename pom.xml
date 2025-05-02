@@ -7,11 +7,11 @@
     <groupId>dev.suvera.scim2</groupId>
     <artifactId>scim2-sdk</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.1-SNAPSHOT</version>
+
     <description>SCIM2 SDK Library</description>
 
     <properties>
-        <sdk.version>1.0.3</sdk.version>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
