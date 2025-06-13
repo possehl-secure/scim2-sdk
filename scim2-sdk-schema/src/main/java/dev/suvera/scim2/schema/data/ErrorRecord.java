@@ -29,10 +29,11 @@ public class ErrorRecord {
     @Override
     @JsonIgnore
     public String toString() {
-        return "ScimError{" +
-                ", scimType='" + scimType + '\'' +
-                ", detail='" + detail + '\'' +
-                ", status=" + status +
-                '}';
+        StringBuilder sb = new StringBuilder("ScimError{");
+        if (scimType != null) sb.append(String.format("scimType='%s', ", scimType));
+        sb.append(String.format("detail='%s', ", detail));
+        sb.append(String.format("status=%d", status));
+        sb.append("}");
+        return sb.toString();
     }
 }
