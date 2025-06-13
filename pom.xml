@@ -154,6 +154,14 @@
         <module>scim2-sdk-server-example</module>
     </modules>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Possehl Secure Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/possehl-secure/scim2-sdk</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -208,13 +216,5 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>suvera-maven-repo</id>
-            <name>suvera Maven Repo</name>
-            <url>http://localhost:8908</url>
-        </repository>
-    </distributionManagement>
 
 </project>
