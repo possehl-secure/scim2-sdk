@@ -2,19 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>possehl.secure.project.scim2</groupId>
+    <artifactId>scim2-sdk-server</artifactId>
+    <version>1.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <description>SCIM2 Server Library</description>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.3</version>
         <relativePath/>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>dev.suvera.scim2</groupId>
-    <artifactId>scim2-sdk-server</artifactId>
-    <version>1.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <description>SCIM2 Server Library</description>
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
@@ -54,7 +55,7 @@
         </dependency>
 
         <dependency>
-            <groupId>dev.suvera.scim2</groupId>
+            <groupId>possehl.secure.project.scim2</groupId>
             <artifactId>scim2-sdk-schema</artifactId>
             <version>${project.version}</version>
         </dependency>

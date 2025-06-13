@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dev.suvera.scim2</groupId>
+    <groupId>possehl.secure.project.scim2</groupId>
     <artifactId>scim2-sdk-server-example</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -17,6 +11,13 @@
     <name>scim2-sdk-server-example</name>
     <description>SCIM 2.0 Compliance Test Utility</description>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
 
@@ -28,7 +29,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>dev.suvera.scim2</groupId>
+            <groupId>possehl.secure.project.scim2</groupId>
             <artifactId>scim2-sdk-server</artifactId>
             <version>${project.version}</version>
         </dependency>
