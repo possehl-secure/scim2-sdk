@@ -77,7 +77,7 @@ public class Scim2UserController {
         }
 
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.patchUser(id, request));
+            return ResponseEntity.ok().body(service.patchUser(id, request));
         } catch (ScimException e) {
             return ResponseUtil.badRequest(e);
         } catch (Exception e) {
