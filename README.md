@@ -1,5 +1,5 @@
 # SCIM 2.0 Java SDK
-> JDK 17+
+> JDK 11+
 
 System for Cross-domain Identity Management (**SCIM**) specification is designed to make managing 
 user identities in cloud-based applications and services easier. The specification suite seeks to 

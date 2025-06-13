@@ -14,6 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static dev.suvera.scim2.schema.ScimConstant.*;
 
@@ -66,7 +67,7 @@ public class DefaultSchemas {
     }
 
     public List<Schema> getSchemas() {
-        return schemaMap.values().stream().toList();
+        return schemaMap.values().stream().collect(Collectors.toList());
     }
 
     public Schema getSchema(String id) {

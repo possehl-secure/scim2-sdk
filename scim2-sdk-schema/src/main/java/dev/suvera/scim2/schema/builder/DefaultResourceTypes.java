@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static dev.suvera.scim2.schema.ScimConstant.*;
 
@@ -72,7 +73,7 @@ public class DefaultResourceTypes {
     }
 
     public List<ResourceType> getResourceTypes() {
-        return typeMap.values().stream().toList();
+        return typeMap.values().stream().collect(Collectors.toList());
     }
 
     public ResourceType getResourceType(String id) {
