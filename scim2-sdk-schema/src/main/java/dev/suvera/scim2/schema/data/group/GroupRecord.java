@@ -6,10 +6,12 @@ import dev.suvera.scim2.schema.ScimConstant;
 import dev.suvera.scim2.schema.data.BaseRecord;
 import dev.suvera.scim2.schema.data.ExtensionRecord;
 import dev.suvera.scim2.schema.data.meta.MetaRecord;
+import dev.suvera.scim2.schema.util.ScimExtensionRegistry;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,19 +34,23 @@ public class GroupRecord extends BaseRecord {
         this.meta = new MetaRecord();
         meta.setResourceType(ScimConstant.NAME_GROUP);
 
-        this.schemas = Set.of(ScimConstant.URN_GROUP);
+        this.schemas = new LinkedHashSet<>();
+        this.schemas.add(ScimConstant.URN_GROUP);
     }
 
     @JsonIgnore
     private Map<String, ExtensionRecord> extensions = new HashMap<>();
 
     @JsonAnySetter
-    protected void setExtensions(String key, Object value) {
+    public void addExtension(String key, Object value) {
         ExtensionRecord extension;
 
         if (value instanceof Map) {
-            // Convert raw Map to ExtensionRecord
-            extension = MAPPER.convertValue(value, ExtensionRecord.class);
+            Class<? extends ExtensionRecord> targetType = ScimExtensionRegistry.getType(key);
+            if (targetType == null) {
+                throw new IllegalArgumentException("Unknown SCIM extension URN: " + key);
+            }
+            extension = MAPPER.convertValue(value, targetType);
         } else if (value instanceof ExtensionRecord) {
             extension = (ExtensionRecord) value;
         } else {
@@ -52,9 +58,7 @@ public class GroupRecord extends BaseRecord {
         }
 
         extensions.put(key, extension);
-        if (this.schemas != null) {
-            this.schemas.add(key);
-        }
+        schemas.add(key);
     }
 
     @JsonAnyGetter
