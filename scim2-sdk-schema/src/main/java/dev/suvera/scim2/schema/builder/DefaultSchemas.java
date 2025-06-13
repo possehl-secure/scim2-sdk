@@ -1,10 +1,8 @@
 package dev.suvera.scim2.schema.builder;
 
-import com.google.common.collect.ImmutableSet;
-import dev.suvera.scim2.schema.ScimConstant;
+import dev.suvera.scim2.schema.data.Attribute;
 import dev.suvera.scim2.schema.data.group.GroupDefinition;
 import dev.suvera.scim2.schema.data.meta.MetaRecord;
-import dev.suvera.scim2.schema.data.misc.ListResponse;
 import dev.suvera.scim2.schema.data.resource.ResourceTypeDefinition;
 import dev.suvera.scim2.schema.data.schema.Schema;
 import dev.suvera.scim2.schema.data.schema.SchemaDefinition;
@@ -12,109 +10,85 @@ import dev.suvera.scim2.schema.data.sp.SpConfigDefinition;
 import dev.suvera.scim2.schema.data.user.EnterpriseUserDefinition;
 import dev.suvera.scim2.schema.data.user.UserDefinition;
 
-import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static dev.suvera.scim2.schema.ScimConstant.*;
 
 /**
- * author: suvera
- * date: 10/19/2020 1:04 PM
+ * Default Schemas
  */
 public class DefaultSchemas {
-    private Schema init(String id) {
+
+    private final String baseUrl;
+    private final Map<String, Schema> schemaMap;
+
+    public DefaultSchemas(String baseUrl) {
+        this.baseUrl = baseUrl;
+        this.schemaMap = new LinkedHashMap<>();
+
+        addDefaultSchemas();
+    }
+
+    private void addDefaultSchemas() {
+        addSchema(buildSchema(
+                URN_SP_CONFIG, NAME_SP_CONFIG,
+                "Service Provider Configurations",
+                SpConfigDefinition.getInstance().getAttributes()));
+
+        addSchema(buildSchema(
+                URN_RESOURCE_TYPE, NAME_RESOURCETYPE,
+                "Schema definition for Resource Types",
+                ResourceTypeDefinition.getInstance().getAttributes()));
+
+        addSchema(buildSchema(
+                URN_SCHEMA, NAME_SCHEMA,
+                "Schema definition for Schema",
+                SchemaDefinition.getInstance().getAttributes()));
+
+        addSchema(buildSchema(
+                URN_USER, NAME_USER,
+                "Schema definition for User",
+                UserDefinition.getInstance().getAttributes()));
+
+        addSchema(buildSchema(
+                URN_ENTERPRISE_USER, NAME_ENTERPRISE_USER,
+                "Schema definition for Enterprise User Extension",
+                EnterpriseUserDefinition.getInstance().getAttributes()));
+
+        addSchema(buildSchema(
+                URN_GROUP, NAME_GROUP,
+                "Schema definition for Group",
+                GroupDefinition.getInstance().getAttributes()));
+
+    }
+
+    public List<Schema> getSchemas() {
+        return schemaMap.values().stream().toList();
+    }
+
+    public Schema getSchema(String id) {
+        return schemaMap.get(id);
+    }
+
+    protected final void addSchema(Schema schema) {
+        schemaMap.put(schema.getId(), schema);
+    }
+
+    protected final Schema buildSchema(String id, String name, String description, Set<Attribute> attrs) {
 
         Schema rt = new Schema();
         rt.setId(id);
-        rt.setSchemas(ImmutableSet.of(URN_SCHEMA));
-
+        rt.setName(name);
+        rt.setDescription(description);
+        rt.setAttributes(attrs);
+        rt.setSchemas(Set.of(URN_SCHEMA));
         rt.setMeta(new MetaRecord(
                 NAME_SCHEMA,
-                DEFAULT_SERVER + PATH_SCHEMAS + "/" + id,
-                new Date(1603095350000L),
-                new Date(1603095350000L),
-                "W/\"123\""
+                baseUrl + PATH_SCHEMAS + "/" + id
         ));
-        return rt;
-    }
-
-    public ListResponse<Schema> schemas() {
-        ListResponse<Schema> list = new ListResponse<>();
-        list.setSchemas(ImmutableSet.of(ScimConstant.URN_LIST_RESPONSE));
-        list.setTotalResults(6);
-        list.setItemsPerPage(10);
-        list.setStartIndex(1);
-
-        list.addResource(serviceProviderConfig());
-        list.addResource(resourceType());
-        list.addResource(schema());
-        list.addResource(user());
-        list.addResource(enterpriseUser());
-        list.addResource(group());
-
-        return list;
-    }
-
-    public Schema resourceType() {
-        Schema rt = init(URN_RESOURCE_TYPE);
-        rt.setName(NAME_RESOURCETYPE);
-        rt.setDescription("Resource Type");
-
-        rt.setAttributes(ResourceTypeDefinition.getInstance().getAttributes());
-        return rt;
-    }
-
-    public Schema serviceProviderConfig() {
-        Schema rt = init(URN_SP_CONFIG);
-
-        rt.setName(NAME_SP_CONFIG);
-        rt.setDescription("Service Provider Configuration");
-
-        rt.setAttributes(SpConfigDefinition.getInstance().getAttributes());
-
-        return rt;
-    }
-
-    public Schema schema() {
-        Schema rt = init(URN_SCHEMA);
-
-        rt.setName(NAME_SCHEMA);
-        rt.setDescription(NAME_SCHEMAS);
-
-        rt.setAttributes(SchemaDefinition.getInstance().getAttributes());
-
-        return rt;
-    }
-
-    public Schema user() {
-        Schema rt = init(URN_USER);
-
-        rt.setName(NAME_USER);
-        rt.setDescription(NAME_USER + "s");
-
-        rt.setAttributes(UserDefinition.getInstance().getAttributes());
-
-        return rt;
-    }
-
-    public Schema enterpriseUser() {
-        Schema rt = init(URN_ENTERPRISE_USER);
-
-        rt.setName("EnterpriseUser");
-        rt.setDescription("Enterprise Users");
-
-        rt.setAttributes(EnterpriseUserDefinition.getInstance().getAttributes());
-
-        return rt;
-    }
-
-    public Schema group() {
-        Schema rt = init(URN_GROUP);
-
-        rt.setName(NAME_GROUP);
-        rt.setDescription(NAME_GROUP + "s");
-
-        rt.setAttributes(GroupDefinition.getInstance().getAttributes());
-
         return rt;
     }
 

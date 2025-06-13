@@ -53,11 +53,10 @@ public class ScimConstant {
 
     public static final String NAME_USER = "User";
     public static final String NAME_GROUP = "Group";
+    public static final String NAME_ENTERPRISE_USER = "EnterpriseUser";
 
     public static final String PATH_USERS = "/Users";
     public static final String PATH_GROUPS = "/Groups";
-    public static final String PATH_USER = "/User";
-    public static final String PATH_GROUP = "/Group";
 
     public static final String PATH_BULK = "/bulk";
     public static final String PATH_SP = "/ServiceProviderConfig";
