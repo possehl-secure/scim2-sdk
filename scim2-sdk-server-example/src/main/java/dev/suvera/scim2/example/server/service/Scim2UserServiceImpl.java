@@ -146,7 +146,7 @@ public class Scim2UserServiceImpl implements Scim2UserService {
         record.setUserName(usr.getUserName());
         record.setActive(usr.isActive());
 
-        UserRecord.UserName name = new UserRecord.UserName();
+        UserRecord.Name name = new UserRecord.Name();
         name.setFormatted(usr.getFormatted());
         name.setFamilyName(usr.getFamilyName());
         name.setGivenName(usr.getGivenName());
@@ -168,10 +168,10 @@ public class Scim2UserServiceImpl implements Scim2UserService {
     }
 
     @NotNull
-    private List<UserRecord.UserGroup> getUserGroups(ScimUser grp) {
-        List<UserRecord.UserGroup> members = new ArrayList<>();
+    private List<UserRecord.GroupRef> getUserGroups(ScimUser grp) {
+        List<UserRecord.GroupRef> members = new ArrayList<>();
         for (ScimGroup member : grp.getGroups()) {
-            UserRecord.UserGroup m = new UserRecord.UserGroup();
+            UserRecord.GroupRef m = new UserRecord.GroupRef();
             m.setType(ScimConstant.NAME_GROUP);
             m.setDisplay(member.getDisplayName());
             m.setValue(member.getId().toString());
